@@ -1,0 +1,147 @@
+inputs:
+- Kafka:
+    codec: plain
+    encoding: UTF8
+    topic:
+      app: 2
+    consumer_settings:
+      group.id: hangout
+      zookeeper.connect: 192.168.1.200:2181
+      auto.commit.interval.ms: '1000'
+- Kafka:
+    codec: json
+    topic:
+      web: 1
+    consumer_settings:
+      group.id: hangout
+      zookeeper.connect: 192.168.1.201:2181
+      auto.commit.interval.ms: '5000'
+filters:
+- Filters:
+    if:
+    - <#if message??>true</#if>
+    - <#if message?contains("liu")>true<#elseif message?contains("warn")>true</#if>
+    filters:
+    - Grok:
+        match:
+        - ^(?<logtime>\S+) (?<user>.+) (-|(?<level>\w+)) %{DATA:msg}$
+        remove_fields:
+        - message
+    - Add:
+        fields:
+          test: abcd
+    - Date:
+        src: logtime
+        formats:
+        - ISO8601
+        remove_fields:
+        - logtime
+- Grok:
+    match:
+    - ^(?<logtime>\S+) (?<user>.+) (-|(?<level>\w+)) %{DATA:msg}$
+    remove_fields:
+    - message
+- Add:
+    fields:
+      test: abcd
+    if:
+    - <#if message??>true</#if>
+    - <#if message?contains("liu")>true<#elseif message?contains("warn")>true</#if>
+- Date:
+    src: logtime
+    formats:
+    - ISO8601
+    remove_fields:
+    - logtime
+- Lowercase:
+    fields:
+    - user
+- Add:
+    fields:
+      me: I am ${user}
+- Remove:
+    fields:
+    - logtime
+- Trim:
+    fields:
+    - user
+- Rename:
+    fields:
+      me: he
+      user: she
+- Gsub:
+    fields:
+      she:
+      - c
+      - CCC
+      he:
+      - (^\w+)|(\w+$)
+      - XXX
+- Translate:
+    source: user
+    target: nick
+    dictionary_path: /tmp/app.dic
+- KV:
+    source: msg
+    target: kv
+    field_split: ' '
+    value_split: '='
+    trim: \t\"
+    trimkey: \"
+    include_keys:
+    - a
+    - b
+    - xyz
+    - '12'
+    exclude_keys:
+    - b
+    - c
+    tag_on_failure: KVfail
+    remove_fields:
+    - msg
+- Convert:
+    fields:
+      cs_bytes:
+        to: integer
+        remove_if_fail: true
+      time_taken:
+        to: float
+        setto_if_fail: 0.0
+- URLDecode:
+    fields:
+    - query1
+    - query2
+- Json:
+    field: message
+    remove_fields:
+    - a
+    - b
+- GeoIP2:
+    source: message
+    target: geoip
+    database: /tmp/GeoLite2-City.mmdb
+    remove_fields:
+    - country_code
+    - location
+- UA:
+    source: ua
+outputs:
+- Stdout:
+    if:
+    - <#if user=="childe">true</#if>
+- Elasticsearch:
+    cluster: hangoutcluster
+    hosts:
+    - 192.168.1.200
+    index: hangout-%{user}-%{+YYYY.MM.dd}
+    index_type: logs
+    document_id: ${id}
+    bulk_actions: 20000
+    bulk_size: 15
+    flush_interval: 10
+    concurrent_requests: 0
+    timezone: Asia/Shanghai
+    sniff: false
+- Kafka:
+    broker_list: 192.168.1.200:9092
+    topic: test2

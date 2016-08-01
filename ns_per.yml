@@ -1,0 +1,44 @@
+inputs:
+- Kafka:
+    codec: plain
+    encoding: UTF8
+    topic:
+      testJSON: 3
+    consumer_settings:
+      group.id: hangout
+      zookeeper.connect: 192.168.31.28:2181
+      auto.commit.interval.ms: '1000'
+filters:
+- Json:
+    field: message
+- Grok:
+    src: msg
+    match:
+    - '%{TIMESTAMP_ISO8601:datetime} \[%{LOGLEVEL:loglevel}\s?\] (?<tempdata>(.*))'
+- Filters:
+    if:
+    - <#if loglevel??>true</#if>
+    - <#if loglevel?contains("INFO")>true</#if>
+    filters:
+    - Gsub:
+        fields:
+          tempdata:
+          - ' '
+          - '|'
+    - Split:
+        fields: tempdata:["|"]
+outputs:
+- Stdout: {
+    }
+- Elasticsearch:
+    cluster: es_cluster
+    hosts:
+    - 192.168.31.25
+    index: ns-per-%{+YYYY.MM.dd}
+    index_type: logs
+    bulk_actions: 20000
+    bulk_size: 15
+    flush_interval: 10
+    concurrent_requests: 0
+    timezone: Asia/Shanghai
+    sniff: false
