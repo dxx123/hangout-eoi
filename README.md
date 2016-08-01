@@ -19,38 +19,38 @@
 * httpcore-4.0.1.jar
 * jackson-annotations-2.5.0.jar
 * jackson-core-2.6.2.jar
-*jackson-databind-2.5.3.jar
-*jackson-dataformat-cbor-2.6.2.jar
-*jackson-dataformat-smile-2.6.2.jar
-*jackson-dataformat-yaml-2.6.2.jar
-*jcodings-1.0.12.jar
-*jcommander-1.27.jar
-*jline-0.9.94.jar
-*joda-convert-1.2.jar
-*joda-time-2.8.2.jar
-*joni-2.1.6.jar
-**jopt-simple-3.2.jar
-*jsr166e-1.1.0.jar
-**jsr305-1.3.9.jar
-*junit-4.12.jar
-*kafka_2.10-0.9.0.1.jar
-*kafka-clients-0.9.0.1.jar
-*log4j-1.2.15.jar
-*lucene-analyzers-common-5.5.0.jar
-*lucene-backward-codecs-5.5.0.jar
-*lucene-core-5.5.0.jar
-*lucene-grouping-5.5.0.jar
-*lucene-highlighter-5.5.0.jar
-*lucene-join-5.5.0.jar
-*lucene-memory-5.5.0.jar
-*lucene-misc-5.5.0.jar
-*lucene-queries-5.5.0.jar
-*lucene-queryparser-5.5.0.jar
-*lucene-sandbox-5.5.0.jar
-*lucene-spatial-5.5.0.jar
-*lucene-spatial3d-5.5.0.jar
-*lucene-suggest-5.5.0.jar
-*lz4-1.2.0.jar
+* jackson-databind-2.5.3.jar
+* jackson-dataformat-cbor-2.6.2.jar
+* jackson-dataformat-smile-2.6.2.jar
+* jackson-dataformat-yaml-2.6.2.jar
+* jcodings-1.0.12.jar
+* jcommander-1.27.jar
+* jline-0.9.94.jar
+* joda-convert-1.2.jar
+* joda-time-2.8.2.jar
+* joni-2.1.6.jar
+* jopt-simple-3.2.jar
+* jsr166e-1.1.0.jar
+* jsr305-1.3.9.jar
+* junit-4.12.jar
+* kafka_2.10-0.9.0.1.jar
+* kafka-clients-0.9.0.1.jar
+* log4j-1.2.15.jar
+* lucene-analyzers-common-5.5.0.jar
+* lucene-backward-codecs-5.5.0.jar
+* lucene-core-5.5.0.jar
+* lucene-grouping-5.5.0.jar
+* lucene-highlighter-5.5.0.jar
+* lucene-join-5.5.0.jar
+* lucene-memory-5.5.0.jar
+* lucene-misc-5.5.0.jar
+* lucene-queries-5.5.0.jar
+* lucene-queryparser-5.5.0.jar
+* lucene-sandbox-5.5.0.jar
+* lucene-spatial-5.5.0.jar
+* lucene-spatial3d-5.5.0.jar
+* lucene-suggest-5.5.0.jar
+* lz4-1.2.0.jar
 * mail-1.4.jar
 * maxmind-db-1.0.0.jar
 * metrics-core-2.2.0.jar
