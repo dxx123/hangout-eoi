@@ -1,7 +1,7 @@
-.activation-1.1.jar
-.bsh-2.0b4.jar
-commons-cli-1.2.jar
-commons-codec-1.3.jar
+####activation-1.1.jar
+####bsh-2.0b4.jar
+####commons-cli-1.2.jar
+####commons-codec-1.3.jar
 commons-collections-3.2.2.jar
 commons-logging-1.1.1.jar
 compress-lzf-1.0.2.jar
